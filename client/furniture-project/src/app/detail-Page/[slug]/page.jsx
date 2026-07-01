@@ -18,7 +18,7 @@ export default function ProductDetailPage({ params }) {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const res = await axios.get(`${API}home/product-details/${slug}`)
+        const res = await axios.get(`home/product-details/${slug}`)
         if (res.data._status && res.data.data) {
           setProduct(res.data.data)
           setPath(res.data.path || '')
@@ -30,7 +30,7 @@ export default function ProductDetailPage({ params }) {
       }
     }
     fetchProduct()
-  }, [slug, API])
+  }, [slug])
 
   const addToCart = async () => {
     try {
@@ -48,6 +48,20 @@ export default function ProductDetailPage({ params }) {
       alert('Please login first')
     }
   }
+
+  const addToWishlist = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        alert("Please login first");
+        return;
+      }
+      await axios.post("wishlist/add", { productId: product._id });
+      alert("Added to wishlist");
+    } catch (err) {
+      alert("Error adding to wishlist");
+    }
+  };
 
   if (loading) {
     return (
@@ -96,7 +110,7 @@ export default function ProductDetailPage({ params }) {
           {/* Image */}
           <div className='flex justify-center'>
             <img
-              src={product.image ? `${path}${product.image}` : 'https://via.placeholder.com/500x400?text=No+Image'}
+              src={product.image && product.image.startsWith('http') ? product.image : `${path}${product.image}`}
               alt={product.name}
               className='max-h-[450px] object-contain w-full'
             />
@@ -142,7 +156,10 @@ export default function ProductDetailPage({ params }) {
               >
                 {added ? '✓ Added to Cart!' : 'Add To Cart'}
               </button>
-              <button className='p-2 border border-gray-300 hover:border-[#C09578] hover:text-[#C09578] rounded'>
+              <button 
+                onClick={addToWishlist}
+                className='p-2 border border-gray-300 hover:border-[#C09578] hover:text-[#C09578] rounded cursor-pointer'
+              >
                 <FaRegHeart size={18} />
               </button>
             </div>
