@@ -2,6 +2,18 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import { BrowserRouter, Route, Routes } from 'react-router'
+import axios from 'axios'
+
+// Global Axios Interceptor to attach admin token
+axios.interceptors.request.use((config) => {
+  const token = localStorage.getItem("adminToken");
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+}, (error) => {
+  return Promise.reject(error);
+});
 import Login from './component/pages/auth/Login'
 import MainLayout from './component/common/MainLayout'
 import Dashboard from './component/pages/dashboard/Dashboard'

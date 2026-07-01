@@ -3,6 +3,35 @@ import { useState } from "react";
 export default function Profile() {
   const [activeTab, setActiveTab] = useState("profile");
   const [image, setImage] = useState(null);
+  const [imagePreview, setImagePreview] = useState(
+    localStorage.getItem("adminPhoto") || "https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg"
+  );
+  const [username, setUsername] = useState(localStorage.getItem("adminUsername") || "Admin");
+  const [email, setEmail] = useState(localStorage.getItem("adminEmail") || "krsumit2203@gmail.com");
+  const [phone, setPhone] = useState(localStorage.getItem("adminPhone") || "9876543210");
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result);
+        setImage(file);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleUpdate = () => {
+    localStorage.setItem("adminPhoto", imagePreview);
+    localStorage.setItem("adminUsername", username);
+    localStorage.setItem("adminEmail", email);
+    localStorage.setItem("adminPhone", phone);
+    
+    // Dispatch custom event to notify Header
+    window.dispatchEvent(new Event("adminPhotoUpdated"));
+    alert("Profile updated successfully!");
+  };
 
   return (
     <div className="min-h-[88vh] bg-gradient-to-br from-gray-100 to-gray-200 p-6">
@@ -47,17 +76,13 @@ export default function Profile() {
             <div className="flex items-center gap-6">
               <label className="cursor-pointer">
                 <img
-                  src={
-                    image
-                      ? URL.createObjectURL(image)
-                      : "https://i.pravatar.cc/150"
-                  }
+                  src={imagePreview}
                   className="w-28 h-28 rounded-full object-cover border"
                 />
                 <input
                   type="file"
                   className="hidden"
-                  onChange={(e) => setImage(e.target.files[0])}
+                  onChange={handleImageChange}
                 />
               </label>
 
@@ -70,24 +95,33 @@ export default function Profile() {
             <div className="grid md:grid-cols-3 gap-4">
               <input
                 type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
                 placeholder="Username"
                 className="input"
               />
 
               <input
                 type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 placeholder="Email"
                 className="input"
               />
 
               <input
                 type="tel"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
                 placeholder="Phone Number"
                 className="input"
               />
             </div>
 
-            <button className="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600">
+            <button 
+              onClick={handleUpdate}
+              className="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 cursor-pointer"
+            >
               Update Profile
             </button>
           </div>

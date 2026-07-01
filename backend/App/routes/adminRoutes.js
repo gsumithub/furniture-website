@@ -14,22 +14,33 @@ const { testimonialRoute } = require("./admin/testimonialRoutes")
 const { contactEnquiryRoute } = require("./admin/contactEnquiryRoutes")
 const { newsletterRoute } = require("./admin/newsletterRoutes")
 const { termsRoute } = require("./admin/termsRoutes")
+const { adminUserRoute } = require("./admin/userRoutes")
+
+const adminAuthMiddleware = require("../middleware/adminAuthMiddleware");
+const { adminLogin } = require("../controller/admin/adminAuthController");
 
 let adminRoute = express.Router()
 
-adminRoute.use("/color", colorRoute)
-adminRoute.use("/material", materialRoute)
-adminRoute.use("/country", countryRoute)
-adminRoute.use("/category", categoryRoute)
-adminRoute.use("/subCategory", subCategoryRoute)
-adminRoute.use("/subSubCategory", subSubCategoryRoute)
-adminRoute.use("/faq", faqRoute)
-adminRoute.use("/slider", sliderRoute)
-adminRoute.use("/whyChoseUs", whyChoseUsRoute)
-adminRoute.use("/testimonial", testimonialRoute)
-adminRoute.use("/product", productRoute)
+// Public login route
+adminRoute.post("/login", adminLogin);
+
+// Protected routes (require adminAuthMiddleware)
+adminRoute.use("/color", adminAuthMiddleware, colorRoute)
+adminRoute.use("/material", adminAuthMiddleware, materialRoute)
+adminRoute.use("/country", adminAuthMiddleware, countryRoute)
+adminRoute.use("/category", adminAuthMiddleware, categoryRoute)
+adminRoute.use("/subCategory", adminAuthMiddleware, subCategoryRoute)
+adminRoute.use("/subSubCategory", adminAuthMiddleware, subSubCategoryRoute)
+adminRoute.use("/faq", adminAuthMiddleware, faqRoute)
+adminRoute.use("/slider", adminAuthMiddleware, sliderRoute)
+adminRoute.use("/whyChoseUs", adminAuthMiddleware, whyChoseUsRoute)
+adminRoute.use("/testimonial", adminAuthMiddleware, testimonialRoute)
+adminRoute.use("/product", adminAuthMiddleware, productRoute)
+adminRoute.use("/terms", adminAuthMiddleware, termsRoute)
+adminRoute.use("/user", adminAuthMiddleware, adminUserRoute)
+
+// Mixed routes (endpoints inside handle their own auth)
 adminRoute.use("/contactEnquiry", contactEnquiryRoute)
 adminRoute.use("/newsletter", newsletterRoute)
-adminRoute.use("/terms", termsRoute)
 
 module.exports = { adminRoute }
