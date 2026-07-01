@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Jost:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --breakpoint-xs: 30rem;
+}
+
+.slick-dots {
+    bottom: 30px !important;
+}
+
+.slick-dots li.slick-active button:before {
+
+    color: #C09578 !important;
+}
+
+.slick-dots li button:before{
+  font-size: 14px !important;
+  color: #C09578 !important;
+}
+
+.slick-next {
+  top: -55px !important;
+  right: 0 !important;
+  color: black !important;
+}
+
+.slick-prev {
+    color: black !important;
+    top: -55px !important;
+    left: 97% !important;
+}
+
+#OurCustumer .slick-dots {
+    bottom: -25px !important;
+}
+button {
+  cursor: pointer;
+}
