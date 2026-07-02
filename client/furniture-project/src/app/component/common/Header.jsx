@@ -82,8 +82,9 @@ export default function Header() {
   let dispatch = useDispatch();
 
   let logOutUser = () => {
+    localStorage.removeItem("token");
     dispatch(logOut());
-    redirect("/");
+    router.push("/");
   };
   const removeItem = async (productId) => {
     try {

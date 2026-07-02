@@ -19,8 +19,9 @@ export default function DashboardPage() {
     let dispatch = useDispatch()
 
     let logOutUser = () => {    
+        localStorage.removeItem("token");
         dispatch(logOut())
-        redirect("/")
+        window.location.href = "/";
     }
 
     let changePassword=(e)=>{
