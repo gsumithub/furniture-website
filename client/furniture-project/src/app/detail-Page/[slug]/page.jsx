@@ -4,9 +4,13 @@ import axios from '@/utils/axiosInstance'
 import { RiStarSFill } from 'react-icons/ri'
 import { FaRegHeart } from 'react-icons/fa'
 import Link from 'next/link'
+import { useParams, useRouter } from 'next/navigation'
+import toast from 'react-hot-toast'
 
-export default function ProductDetailPage({ params }) {
-  const { slug } = params
+export default function ProductDetailPage() {
+  const params = useParams()
+  const slug = params?.slug
+  const router = useRouter()
   const API = process.env.NEXT_PUBLIC_APIBASEURL
 
   const [product, setProduct] = useState(null)
@@ -16,6 +20,7 @@ export default function ProductDetailPage({ params }) {
   const [added, setAdded] = useState(false)
 
   useEffect(() => {
+    if (!slug) return
     const fetchProduct = async () => {
       try {
         const res = await axios.get(`home/product-details/${slug}`)
@@ -36,16 +41,17 @@ export default function ProductDetailPage({ params }) {
     try {
       const token = localStorage.getItem('token')
       if (!token) {
-        alert('Please login first')
-        window.location.href = '/login-register'
+        toast.error('Please login first')
+        router.push('/login-register')
         return
       }
       await axios.post('cart/add', { productId: product._id, quantity: qty })
       setAdded(true)
+      toast.success('Added to Cart!')
       window.dispatchEvent(new Event('cartUpdated'))
       setTimeout(() => setAdded(false), 2000)
     } catch (err) {
-      alert('Please login first')
+      toast.error('Error adding to cart. Please log in first.')
     }
   }
 
@@ -53,13 +59,14 @@ export default function ProductDetailPage({ params }) {
     try {
       const token = localStorage.getItem("token");
       if (!token) {
-        alert("Please login first");
+        toast.error("Please login first");
+        router.push('/login-register')
         return;
       }
       await axios.post("wishlist/add", { productId: product._id });
-      alert("Added to wishlist");
+      toast.success("Added to wishlist");
     } catch (err) {
-      alert("Error adding to wishlist");
+      toast.error("Error adding to wishlist");
     }
   };
 

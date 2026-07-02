@@ -2,6 +2,7 @@
 import axios from "@/utils/axiosInstance";
 import Link from "next/link";
 import { FaRegHeart } from "react-icons/fa";
+import toast from "react-hot-toast";
 
 export default function ProductCard({
   path,
@@ -15,15 +16,20 @@ export default function ProductCard({
 
   const addToCart = async () => {
     try {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        toast.error("Please login first");
+        return;
+      }
       await axios.post("cart/add", {
         productId,
         quantity: 1,
       });
 
-      alert("Added to cart");
+      toast.success("Added to cart");
       window.dispatchEvent(new Event("cartUpdated"));
     } catch (err) {
-      alert("Please login first");
+      toast.error("Failed to add to cart");
     }
   };
 
@@ -31,13 +37,13 @@ export default function ProductCard({
     try {
       const token = localStorage.getItem("token");
       if (!token) {
-        alert("Please login first");
+        toast.error("Please login first");
         return;
       }
       await axios.post("wishlist/add", { productId });
-      alert("Added to wishlist");
+      toast.success("Added to wishlist");
     } catch (err) {
-      alert("Error adding to wishlist");
+      toast.error("Error adding to wishlist");
     }
   };
 

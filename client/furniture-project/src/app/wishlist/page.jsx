@@ -4,6 +4,7 @@ import axios from "@/utils/axiosInstance";
 import Testimonial from "../component/common/Testimonial";
 import Link from "next/link";
 import { RiDeleteBin5Line } from "react-icons/ri";
+import toast from "react-hot-toast";
 
 export default function WishlistPage() {
   const [wishlistItems, setWishlistItems] = useState([]);
@@ -36,8 +37,9 @@ export default function WishlistPage() {
     try {
       await axios.post("wishlist/remove", { productId });
       setWishlistItems((prev) => prev.filter((item) => item._id !== productId));
+      toast.success("Removed from wishlist");
     } catch (err) {
-      alert("Failed to remove item");
+      toast.error("Failed to remove item");
     }
   };
 
@@ -47,10 +49,10 @@ export default function WishlistPage() {
         productId,
         quantity: 1,
       });
-      alert("Added to cart");
+      toast.success("Added to cart");
       window.dispatchEvent(new Event("cartUpdated"));
     } catch (err) {
-      alert("Failed to add item to cart. Please log in first.");
+      toast.error("Failed to add item to cart. Please log in first.");
     }
   };
 

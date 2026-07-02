@@ -1,7 +1,8 @@
 "use client";
 
 import { useParams } from "next/navigation";
-import axios from "@/utils/axiosInstance"
+import axios from "@/utils/axiosInstance";
+import toast from "react-hot-toast";
 
 export default function ResetPassword() {
   let { userId } = useParams(); // 
@@ -17,7 +18,14 @@ export default function ResetPassword() {
     })
     .then(res => res.data)
     .then(data => {
-      alert(data._message);
+      if (data._status) {
+        toast.success(data._message || "Password reset successfully!");
+      } else {
+        toast.error(data._message || "Failed to reset password");
+      }
+    })
+    .catch(err => {
+      toast.error("An error occurred");
     });
   };
 

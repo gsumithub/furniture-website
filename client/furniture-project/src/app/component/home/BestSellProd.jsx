@@ -7,6 +7,7 @@ import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";
 import { FaRegHeart } from "react-icons/fa";
 import axios from "@/utils/axiosInstance"
 import Link from "next/link";
+import toast from "react-hot-toast";
 
 export default function BestSellProd() {
   const [productData, setProductData] = useState([]);
@@ -128,7 +129,7 @@ function ProductCard({ path, title, price, discountPri, slug, productId }) {
       const token = localStorage.getItem("token");
 
       if (!token) {
-        alert("Please login first");
+        toast.error("Please login first");
         return;
       }
 
@@ -145,11 +146,11 @@ function ProductCard({ path, title, price, discountPri, slug, productId }) {
         }
       );
 
-      alert("Added to cart");
+      toast.success("Added to cart");
       window.dispatchEvent(new Event("cartUpdated"));
 
     } catch (err) {
-      alert("Error adding to cart");
+      toast.error("Error adding to cart");
     }
   };
 
@@ -161,13 +162,13 @@ function ProductCard({ path, title, price, discountPri, slug, productId }) {
     try {
       const token = localStorage.getItem("token");
       if (!token) {
-        alert("Please login first");
+        toast.error("Please login first");
         return;
       }
       await axios.post("wishlist/add", { productId });
-      alert("Added to wishlist");
+      toast.success("Added to wishlist");
     } catch (err) {
-      alert("Error adding to wishlist");
+      toast.error("Error adding to wishlist");
     }
   };
 

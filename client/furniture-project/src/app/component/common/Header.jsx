@@ -12,7 +12,8 @@ import Link from "next/link";
 import { useSelector, useDispatch } from "react-redux";
 import { logOut } from "@/app/redox/loginSlice";
 import { redirect, useRouter } from "next/navigation";
-import axios from "@/utils/axiosInstance"
+import axios from "@/utils/axiosInstance";
+import toast from "react-hot-toast";
 
 export default function Header() {
   let [scroll, setScroll] = useState(false);
@@ -184,7 +185,13 @@ export default function Header() {
                 </button>
               </Link>
 
-              <button className="py-2 w-full text-white bg-[#C09578]">
+              <button
+                onClick={() => {
+                  setCartOpen(false);
+                  router.push("/checkout");
+                }}
+                className="py-2 w-full text-white bg-[#C09578] hover:bg-black transition-colors"
+              >
                 CHECKOUT
               </button>
             </div>
@@ -205,7 +212,7 @@ export default function Header() {
               Log Out
             </button>
           ) : (
-            <Link href={"login-register"}>Login / Register</Link>
+            <Link href={"/login-register"}>Login / Register</Link>
           )}
         </div>
       </div>
@@ -241,8 +248,8 @@ export default function Header() {
                 const token = localStorage.getItem("token");
 
                 if (!token) {
-                  alert("Login required");
-                  window.location.href = "/login-register";
+                  toast.error("Login required");
+                  router.push("/login-register");
                   return;
                 }
 
@@ -294,26 +301,26 @@ export default function Header() {
           <li className="p-5 relative group flex items-center gap-1 cursor-pointer select-none hover:text-[#c09578] transition-colors duration-150">
             Pages <IoIosArrowDown />
             <div className="absolute w-[220px] top-full left-0 hidden group-hover:block bg-white border border-gray-100 shadow-xl rounded-b-md z-50 p-4 text-gray-800">
-              <Link href="about-us" className="block py-2 border-b border-gray-50 hover:text-[#c09578] text-sm font-normal transition-colors">
+              <Link href="/about-us" className="block py-2 border-b border-gray-50 hover:text-[#c09578] text-sm font-normal transition-colors">
                 About Us
               </Link>
 
-              <Link href="cart" className="block py-2 border-b border-gray-50 hover:text-[#c09578] text-sm font-normal transition-colors">
+              <Link href="/cart" className="block py-2 border-b border-gray-50 hover:text-[#c09578] text-sm font-normal transition-colors">
                 Cart
               </Link>
 
-              <Link href="checkout" className="block py-2 border-b border-gray-50 hover:text-[#c09578] text-sm font-normal transition-colors">
+              <Link href="/checkout" className="block py-2 border-b border-gray-50 hover:text-[#c09578] text-sm font-normal transition-colors">
                 Checkout
               </Link>
 
-              <Link href="faq" className="block py-2 hover:text-[#c09578] text-sm font-normal transition-colors">
+              <Link href="/faqs" className="block py-2 hover:text-[#c09578] text-sm font-normal transition-colors">
                 Frequently Questions
               </Link>
             </div>
           </li>
 
           <li className="p-5">
-            <Link href="contect-us">Contact</Link>
+            <Link href="/contect-us">Contact</Link>
           </li>
         </ul>
       </div>

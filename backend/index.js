@@ -31,7 +31,7 @@ App.use("/uploads/whyChoseUs", express.static("uploads/whyChoseUs"));
 App.use("/uploads/testimonial", express.static("uploads/testimonial"));
 
 // ------------------------------ Web Routes ------------------------------
-App.use("/api", webRoute); //  THIS FIXES YOUR 404
+App.use("/api", webRoute); 
 
 // ------------------------------ DB CONNECTION ------------------------------
 mongoose

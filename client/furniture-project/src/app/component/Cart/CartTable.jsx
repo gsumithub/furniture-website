@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "@/utils/axiosInstance"
 import { RiDeleteBin5Line } from "react-icons/ri";
+import Link from "next/link";
 
 export default function CartTable() {
   const [cart, setCart] = useState([]);
@@ -165,8 +166,17 @@ export default function CartTable() {
         </table>
 
         {/* TOTAL SECTION */}
-        <div className="text-right mt-5 text-xl font-semibold">
-          Total: ₹{totalAmount}
+        <div className="flex flex-col items-end mt-5">
+          <div className="text-right text-xl font-semibold mb-4">
+            Total: ₹{totalAmount}
+          </div>
+          {cart.length > 0 && (
+            <Link href="/checkout">
+              <button className="bg-[#C09578] text-white px-8 py-3 rounded font-semibold hover:bg-black transition-colors shadow-md cursor-pointer">
+                PROCEED TO CHECKOUT
+              </button>
+            </Link>
+          )}
         </div>
       </div>
     </div>

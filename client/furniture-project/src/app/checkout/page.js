@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import axios from "@/utils/axiosInstance"
+import axios from "@/utils/axiosInstance";
+import toast from "react-hot-toast";
 
 export default function CheckoutPage() {
   const API = process.env.NEXT_PUBLIC_APIBASEURL;
@@ -58,6 +59,15 @@ export default function CheckoutPage() {
   const placeOrder = async () => {
     try {
       const token = localStorage.getItem("token");
+      if (!token) {
+        toast.error("Please login first to place an order");
+        return;
+      }
+
+      if (!form.address || !form.city || !form.pincode || !form.phone) {
+        toast.error("Please fill in all shipping details");
+        return;
+      }
 
       const res = await axios.post(
         "order/create",
@@ -72,7 +82,7 @@ export default function CheckoutPage() {
       );
 
       if (res.data.success) {
-        alert("✅ Order placed successfully!");
+        toast.success("Order placed successfully!");
 
         // 🔥 clear UI
         setCart([]);
@@ -80,11 +90,13 @@ export default function CheckoutPage() {
 
         // 🔥 update header cart
         window.dispatchEvent(new Event("cartUpdated"));
-
+      } else {
+        toast.error(res.data.message || "Failed to place order");
       }
 
     } catch (err) {
       console.log(err);
+      toast.error("An error occurred while placing the order");
     }
   };
 
