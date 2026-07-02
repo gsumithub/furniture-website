@@ -30,8 +30,12 @@ export default function WhyChoseUs() {
              </div>
 
              <div className='text-center'>
-                <div className='flex justify-center  mb-5'>
-                    <img src="https://wscubetech.co/Assignments/furniture/storage/app/public/uploads/images/why_choose_us/d86a55b7-bbd1-4565-86ad-b3463e728fdc-1760712425.jpg" alt="" />
+                <div className='flex justify-center mb-5 overflow-hidden rounded-lg shadow-sm border border-gray-100 group'>
+                    <img 
+                      src="https://wscubetech.co/Assignments/furniture/storage/app/public/uploads/images/why_choose_us/d86a55b7-bbd1-4565-86ad-b3463e728fdc-1760712425.jpg" 
+                      className='transition-transform duration-700 ease-out group-hover:scale-105' 
+                      alt="Creative Design" 
+                    />
                 </div>
                 <div>
                   <h3 className='font-serif font-semibold text-sm mb-3'>Creative-Design</h3>
@@ -40,8 +44,12 @@ export default function WhyChoseUs() {
              </div>
 
              <div className='text-center'>
-                <div className='flex justify-center  mb-5'>
-                    <img src="https://wscubetech.co/Assignments/furniture/storage/app/public/uploads/images/home-page/dbfbc372-1550-40ef-a372-19566e1776b2-1671213170.jpg" alt="" />
+                <div className='flex justify-center mb-5 overflow-hidden rounded-lg shadow-sm border border-gray-100 group'>
+                    <img 
+                      src="https://wscubetech.co/Assignments/furniture/storage/app/public/uploads/images/home-page/dbfbc372-1550-40ef-a372-19566e1776b2-1671213170.jpg" 
+                      className='transition-transform duration-700 ease-out group-hover:scale-105' 
+                      alt="What Do We Do?" 
+                    />
                 </div>
                 <div>
                   <h3 className='font-serif font-semibold text-sm mb-3'>What Do We Do?</h3>
@@ -50,8 +58,12 @@ export default function WhyChoseUs() {
              </div>
 
              <div className='text-center'>
-                <div className='flex justify-center  mb-5'>
-                    <img src="https://wscubetech.co/Assignments/furniture/storage/app/public/uploads/images/home-page/0eb1dffc-23c4-4a66-bb02-f5028e3658d3-1671213170.jpg" alt="" />
+                <div className='flex justify-center mb-5 overflow-hidden rounded-lg shadow-sm border border-gray-100 group'>
+                    <img 
+                      src="https://wscubetech.co/Assignments/furniture/storage/app/public/uploads/images/home-page/0eb1dffc-23c4-4a66-bb02-f5028e3658d3-1671213170.jpg" 
+                      className='transition-transform duration-700 ease-out group-hover:scale-105' 
+                      alt="Our Mission" 
+                    />
                 </div>
                 <div>
                   <h3 className='font-serif font-semibold text-sm mb-3'>Our Mission</h3>
@@ -60,8 +72,12 @@ export default function WhyChoseUs() {
              </div>
 
              <div className='text-center'>
-                <div className='flex justify-center  mb-5'>
-                    <img src="https://wscubetech.co/Assignments/furniture/storage/app/public/uploads/images/home-page/028a3c98-0fb9-4fc0-8e7c-0076d254de41-1671213170.jpg" alt="" />
+                <div className='flex justify-center mb-5 overflow-hidden rounded-lg shadow-sm border border-gray-100 group'>
+                    <img 
+                      src="https://wscubetech.co/Assignments/furniture/storage/app/public/uploads/images/home-page/028a3c98-0fb9-4fc0-8e7c-0076d254de41-1671213170.jpg" 
+                      className='transition-transform duration-700 ease-out group-hover:scale-105' 
+                      alt="History Of Us" 
+                    />
                 </div>
                 <div>
                   <h3 className='font-serif font-semibold text-sm mb-3'>History Of Us</h3>
