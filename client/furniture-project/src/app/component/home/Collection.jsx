@@ -53,7 +53,7 @@ function CollectionItem({ path, title, subtitle }) {
     <div className='relative group overflow-hidden rounded-lg shadow-sm border border-gray-100'>
       <img 
         src={imgSrc} 
-        className='duration-500 group-hover:scale-110 w-full h-[300px] object-cover' 
+        className='transition-transform duration-700 ease-out group-hover:scale-110 w-full h-[300px] object-cover' 
         alt={title} 
       />
       <div className='absolute top-8 left-8 z-10'>
