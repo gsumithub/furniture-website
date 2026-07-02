@@ -4,7 +4,7 @@ import Cookies from 'js-cookie'
 export const loginSlice = createSlice({
   name: 'auth',
   initialState:{
-    token: Cookies.get('token') || null,
+    token: typeof window !== 'undefined' ? (localStorage.getItem('token') || Cookies.get('token') || null) : null,
   },
   reducers: {
     setToken:(state, action)=>{

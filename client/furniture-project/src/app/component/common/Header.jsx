@@ -62,7 +62,11 @@ export default function Header() {
   const fetchCart = async () => {
     try {
       const token = localStorage.getItem("token");
-      if (!token) return;
+      if (!token) {
+        setCartItems([]);
+        setCartCount(0);
+        return;
+      }
 
       const res = await axios.get("cart", {
         headers: { Authorization: `Bearer ${token}` },
@@ -84,6 +88,8 @@ export default function Header() {
   let logOutUser = () => {
     localStorage.removeItem("token");
     dispatch(logOut());
+    setCartItems([]);
+    setCartCount(0);
     router.push("/");
   };
   const removeItem = async (productId) => {
@@ -249,8 +255,6 @@ export default function Header() {
 
             <div
               onClick={() => {
-                const token = localStorage.getItem("token");
-
                 if (!token) {
                   toast.error("Login required");
                   router.push("/login-register");
