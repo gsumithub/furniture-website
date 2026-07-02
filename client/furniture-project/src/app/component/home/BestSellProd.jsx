@@ -14,11 +14,29 @@ export default function BestSellProd() {
   const [productData, setProductData] = useState([]);
   const [path, setPath] = useState("");
   const [mounted, setMounted] = useState(false);
+  const [slidesToShow, setSlidesToShow] = useState(4);
   const sliderRef = useRef(null);
 
   useEffect(() => {
     setMounted(true);
     getProductData();
+
+    const handleResize = () => {
+      const width = window.innerWidth;
+      if (width < 480) {
+        setSlidesToShow(1);
+      } else if (width < 768) {
+        setSlidesToShow(2);
+      } else if (width < 1024) {
+        setSlidesToShow(3);
+      } else {
+        setSlidesToShow(4);
+      }
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const getProductData = () => {
@@ -40,33 +58,13 @@ export default function BestSellProd() {
 
   const settings = {
     dots: false,
-    infinite: true,
+    infinite: productData.length > slidesToShow,
     speed: 500,
-    slidesToShow: 4,
+    slidesToShow: slidesToShow,
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 3000,
     arrows: false, // Turn off default arrows so our custom styled ones work
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 3,
-        }
-      },
-      {
-        breakpoint: 768,
-        settings: {
-          slidesToShow: 2,
-        }
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 1,
-        }
-      }
-    ]
   };
 
   return (
