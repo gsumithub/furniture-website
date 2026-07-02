@@ -121,11 +121,15 @@ button:active {
 
 img {
   transition: opacity 0.3s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: scale(1);
+  will-change: transform;
 }
 
 /* Make sure all group hover images scale smoothly */
 .group img {
   transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  transform: scale(1);
+  will-change: transform;
 }
 
 /* Enhancing shadow & transition for product cards */
