@@ -3,9 +3,11 @@
 import React, { useEffect, useState } from "react";
 import axios from "@/utils/axiosInstance";
 import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 export default function CheckoutPage() {
   const API = process.env.NEXT_PUBLIC_APIBASEURL;
+  const router = useRouter();
 
   const [cart, setCart] = useState([]);
   const [total, setTotal] = useState(0);
@@ -44,8 +46,14 @@ export default function CheckoutPage() {
   };
 
   useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      toast.error("Please login first to access checkout");
+      router.push("/login-register");
+      return;
+    }
     fetchCart();
-  }, []);
+  }, [router]);
 
   // ================= HANDLE INPUT =================
   const handleChange = (e) => {

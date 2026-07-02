@@ -5,10 +5,12 @@ import Testimonial from "../component/common/Testimonial";
 import Link from "next/link";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 export default function WishlistPage() {
   const [wishlistItems, setWishlistItems] = useState([]);
   const [loading, setLoading] = useState(true);
+  const router = useRouter();
 
   const fetchWishlist = async () => {
     try {
@@ -30,8 +32,14 @@ export default function WishlistPage() {
   };
 
   useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      toast.error("Please login first to view your wishlist");
+      router.push("/login-register");
+      return;
+    }
     fetchWishlist();
-  }, []);
+  }, [router]);
 
   const handleRemove = async (productId) => {
     try {

@@ -1,17 +1,21 @@
-import React from "react";
+"use client";
+import React, { useEffect } from "react";
 import Testimonial from "../component/common/Testimonial";
 import CartTable from "../component/Cart/CartTable";
-
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 export default function Page() {
-//   useEffect(() => {
-//     const token = localStorage.getItem("token")
+  const router = useRouter();
 
-//     if (!token) {
-//       alert("Please login first")
-//       window.location.href = "/login-register"
-//     }
-//   }, [])
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      toast.error("Please login first to view your cart");
+      router.push("/login-register");
+    }
+  }, [router]);
 
   return (
     <div>
