@@ -136,31 +136,31 @@ export default function DashboardPage() {
                             {activeTab === 'orders' && (
                                 <div className=''>
                                     <h3 className='font-serif font-semibold text-xl mb-5'>Orders</h3>
-                                    <div className='table-responsive '>
-                                        <table className="table">
-                                            <thead className='bg-[#f2f2f2] border-b-[1px]'>
-                                                <tr className='w-full font-serif font-normal'>
-                                                    <th className='w-[193px] p-2 '>Order</th>
-                                                    <th className='w-[193px] p-2 '>Date</th>
-                                                    <th className='w-[193px] p-2 '>Status</th>
-                                                    <th className='w-[193px] p-2 '>Total</th>
-                                                    <th className='w-[193px] p-2 '>Actions</th>
+                                    <div className='w-full overflow-x-auto rounded border border-gray-200 shadow-sm'>
+                                        <table className="w-full text-center border-collapse min-w-[600px]">
+                                            <thead className='bg-[#f2f2f2] border-b'>
+                                                <tr className='font-serif font-semibold text-gray-700'>
+                                                    <th className='p-3'>Order</th>
+                                                    <th className='p-3'>Date</th>
+                                                    <th className='p-3'>Status</th>
+                                                    <th className='p-3'>Total</th>
+                                                    <th className='p-3'>Actions</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr className='text-center'>
-                                                    <td className='p-2 border-[2px] border-t-0 border-[#f2f2f2]'>1</td>
-                                                    <td className='p-2 border-[2px] border-t-0 border-[#f2f2f2]'>May 10, 2018</td>
-                                                    <td className='p-2 border-[2px] border-t-0 border-[#f2f2f2]'><span className="success">Completed</span></td>
-                                                    <td className='p-2 border-[2px] border-t-0 border-[#f2f2f2]'>Rs. 25.00 for 1 item </td>
-                                                    <td className='p-2 border-[2px] border-t-0 border-[#f2f2f2]'><Link href="/product-details/your_product_name" className="view">view</Link></td>
+                                                <tr className='border-b hover:bg-gray-50 transition-colors'>
+                                                    <td className='p-3 text-gray-700'>1</td>
+                                                    <td className='p-3 text-gray-600'>May 10, 2018</td>
+                                                    <td className='p-3'><span className="bg-green-100 text-green-700 text-xs px-2.5 py-1 rounded font-semibold">Completed</span></td>
+                                                    <td className='p-3 text-gray-700 font-medium'>Rs. 25.00 for 1 item </td>
+                                                    <td className='p-3'><Link href="/product-details/your_product_name" className="text-[#C09578] hover:underline font-semibold text-sm">view</Link></td>
                                                 </tr>
-                                                <tr className='text-center'>
-                                                    <td className='p-2 border-[2px] border-t-0 border-[#f2f2f2]'>2</td>
-                                                    <td className='p-2 border-[2px] border-t-0 border-[#f2f2f2]'>May 10, 2018</td>
-                                                    <td className='p-2 border-[2px] border-t-0 border-[#f2f2f2]'>Processing</td>
-                                                    <td className='p-2 border-[2px] border-t-0 border-[#f2f2f2]'>Rs. 17.00 for 1 item </td>
-                                                    <td className='p-2 border-[2px] border-t-0 border-[#f2f2f2]'><Link href="/product-details/your_product_name" className="view">view</Link></td>
+                                                <tr className='border-b hover:bg-gray-50 transition-colors'>
+                                                    <td className='p-3 text-gray-700'>2</td>
+                                                    <td className='p-3 text-gray-600'>May 10, 2018</td>
+                                                    <td className='p-3'><span className="bg-amber-100 text-amber-700 text-xs px-2.5 py-1 rounded font-semibold">Processing</span></td>
+                                                    <td className='p-3 text-gray-700 font-medium'>Rs. 17.00 for 1 item </td>
+                                                    <td className='p-3'><Link href="/product-details/your_product_name" className="text-[#C09578] hover:underline font-semibold text-sm">view</Link></td>
                                                 </tr>
                                             </tbody>
                                         </table>

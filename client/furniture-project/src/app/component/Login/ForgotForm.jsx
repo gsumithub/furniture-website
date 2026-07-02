@@ -22,12 +22,40 @@ export default function ForgotForm() {
   };
 
   return (
-    <form onSubmit={submit}>
-      <input name="email" placeholder="Email" />
-      <button type="submit">Send</button>
+    <div className="max-w-[500px] mx-auto py-10 px-3">
+      <div className="p-6 border rounded shadow-sm bg-white">
+        <p className="text-sm text-gray-500 mb-5 text-center">
+          Enter your email address and we will send you a password reset link.
+        </p>
 
-      {msg && <p>{msg}</p>}
-      {error && <p>{error}</p>}
-    </form>
+        <form onSubmit={submit}>
+          <input
+            name="email"
+            type="email"
+            placeholder="Email Address"
+            className="w-full p-3 mb-4 border rounded focus:border-[#C09578] focus:outline-none bg-white text-sm"
+            required
+          />
+
+          <button
+            type="submit"
+            className="w-full bg-[#c09578] text-white py-3 hover:bg-black transition-colors rounded font-semibold text-sm cursor-pointer"
+          >
+            Send Reset Link
+          </button>
+        </form>
+
+        {msg && (
+          <p className="mt-4 text-green-600 text-sm font-semibold text-center bg-green-50 p-2.5 rounded border border-green-200 animate-fade-in">
+            {msg}
+          </p>
+        )}
+        {error && (
+          <p className="mt-4 text-red-500 text-sm font-semibold text-center bg-red-50 p-2.5 rounded border border-red-200 animate-fade-in">
+            {error}
+          </p>
+        )}
+      </div>
+    </div>
   );
 }

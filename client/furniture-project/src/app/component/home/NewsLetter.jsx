@@ -33,18 +33,18 @@ export default function NewsLetter() {
       <div className='max-w-[1320px] mx-auto text-center px-3'>
         <h2 className='font-semibold text-2xl font-serif mb-3'>Our Newsletter</h2>
         <p className='text-sm text-[#5A5A5A] font-semibold mb-5'>Get E-mail updates about our latest shop and special offers.</p>
-        <form onSubmit={handleSubscribe} className='flex justify-center'>
+        <form onSubmit={handleSubscribe} className='flex flex-col sm:flex-row gap-2 justify-center items-center px-4'>
           <input
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder='Email address..'
-            className='max-w-[300px] w-full py-2 px-3 border-2 border-[#ebebeb] box-border'
+            className='max-w-[300px] w-full py-2 px-3 border-2 border-[#ebebeb] box-border bg-white focus:outline-none focus:border-[#C09578]'
           />
           <button
             type='submit'
             disabled={loading}
-            className='text-white py-2 px-8 bg-[#C09578] border-2 border-[#C09578] hover:bg-black hover:border-black duration-200 disabled:opacity-50'
+            className='text-white w-full sm:w-auto py-2 px-8 bg-[#C09578] border-2 border-[#C09578] hover:bg-black hover:border-black duration-200 disabled:opacity-50 cursor-pointer'
           >
             {loading ? '...' : 'Subscribe'}
           </button>

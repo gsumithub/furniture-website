@@ -24,6 +24,8 @@ export default function Header() {
   let [cartCount, setCartCount] = useState(0);
   let [categories, setCategories] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const [mobileCategoriesOpen, setMobileCategoriesOpen] = useState(false);
+  const [mobilePagesOpen, setMobilePagesOpen] = useState(false);
   const router = useRouter();
 
   const handleSearchSubmit = (e) => {
@@ -141,11 +143,13 @@ export default function Header() {
       {/* -------- CART SIDEBAR -------- */}
       <div
         className={`fixed top-0 ${cartOpen ? "right-0" : "right-[-2500px]"} w-full h-screen z-50 bg-[rgba(0,0,0,0.55)]`}
+        onClick={() => setCartOpen(false)}
       >
         <div
-          className={`w-[355px] h-screen fixed top-0 ${cartOpen ? "right-0" : "right-[-1000px]"} duration-500 bg-white`}
+          className={`w-[355px] h-screen fixed top-0 ${cartOpen ? "right-0" : "right-[-1000px]"} duration-500 bg-white flex flex-col`}
+          onClick={(e) => e.stopPropagation()}
         >
-          <div className="py-5 px-5 border-b relative">
+          <div className="py-5 px-5 border-b relative flex-shrink-0">
             <h3 className="font-serif font-semibold text-xl">Cart</h3>
             <button
               onClick={() => setCartOpen(false)}
@@ -155,7 +159,7 @@ export default function Header() {
             </button>
           </div>
 
-          <div className="px-5">
+          <div className="px-5 flex-1 overflow-y-auto">
             {cartItems.length === 0 ? (
               <p className="py-5 text-center">No items</p>
             ) : (
@@ -176,8 +180,10 @@ export default function Header() {
                 />
               ))
             )}
+          </div>
 
-            <div className="py-6 flex justify-between">
+          <div className="p-5 bg-[#242424] text-white flex-shrink-0 border-t">
+            <div className="pb-4 flex justify-between items-center text-sm font-semibold">
               <h3>Subtotal:</h3>
               <span>
                 Rs.{" "}
@@ -188,29 +194,188 @@ export default function Header() {
               </span>
             </div>
 
-            <div className="p-5 bg-[#242424]">
-              <Link href="/cart">
-                <button className="bg-[#3a3737] py-2 w-full text-white mb-3 hover:bg-[#C09578]">
-                  VIEW CART
+            <Link href="/cart">
+              <button 
+                onClick={() => setCartOpen(false)}
+                className="bg-[#3a3737] py-2 w-full text-white mb-3 hover:bg-[#C09578] transition-colors"
+              >
+                VIEW CART
+              </button>
+            </Link>
+
+            <button
+              onClick={() => {
+                setCartOpen(false);
+                router.push("/checkout");
+              }}
+              className="py-2 w-full text-white bg-[#C09578] hover:bg-black transition-colors"
+            >
+              CHECKOUT
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* -------- MOBILE MENU DRAWER -------- */}
+      <div
+        className={`fixed top-0 left-0 ${menu ? "w-full h-screen" : "w-0 h-0 overflow-hidden"} z-50 bg-[rgba(0,0,0,0.55)] transition-opacity duration-300`}
+        onClick={() => setMenu(false)}
+      >
+        <div
+          className={`w-[280px] h-screen fixed top-0 left-0 ${menu ? "left-0" : "left-[-350px]"} duration-300 bg-white shadow-xl flex flex-col`}
+          onClick={(e) => e.stopPropagation()}
+        >
+          {/* Header */}
+          <div className="py-5 px-5 border-b relative flex justify-between items-center bg-gray-50 flex-shrink-0">
+            <img
+              width={110}
+              src="https://wscubetech.co/Assignments/furniture/storage/app/public/uploads/images/company-profile/logo/cccfbdab-3bec-439f-88b9-5694698cd302-1670132652.png"
+              alt="Logo"
+            />
+            <button
+              onClick={() => setMenu(false)}
+              className="text-gray-700 hover:text-black p-1"
+            >
+              <RxCross1 size={20} />
+            </button>
+          </div>
+
+          {/* Search bar inside drawer */}
+          <div className="p-4 border-b flex-shrink-0">
+            <form onSubmit={(e) => { handleSearchSubmit(e); setMenu(false); }} className="flex items-center border border-gray-200 rounded-full bg-gray-50 focus-within:border-[#C09578] focus-within:bg-white focus-within:ring-1 focus-within:ring-[#C09578] transition-all duration-200">
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="px-4 py-2 w-full bg-transparent text-sm focus:outline-none placeholder-gray-400 font-normal rounded-l-full"
+                placeholder="Search Product..."
+              />
+              <button type="submit" className="p-2 text-gray-500 hover:text-[#C09578] cursor-pointer mr-1 bg-transparent border-0 outline-none">
+                <IoSearch size={16} />
+              </button>
+            </form>
+          </div>
+
+          {/* Navigation Links */}
+          <div className="flex-1 overflow-y-auto p-5 space-y-4">
+            <div className="space-y-2">
+              <Link 
+                href="/" 
+                onClick={() => setMenu(false)}
+                className="block py-2 text-base font-semibold border-b border-gray-100 hover:text-[#C09578]"
+              >
+                Home
+              </Link>
+            </div>
+
+            {/* Categories Collapsible */}
+            {categories.length > 0 && (
+              <div className="space-y-1">
+                <button
+                  onClick={() => setMobileCategoriesOpen(!mobileCategoriesOpen)}
+                  className="w-full flex justify-between items-center py-2 text-base font-semibold border-b border-gray-100 text-gray-800 hover:text-[#C09578] cursor-pointer bg-transparent border-0 outline-none"
+                >
+                  <span>Categories</span>
+                  {mobileCategoriesOpen ? <IoIosArrowUp size={16} /> : <IoIosArrowDown size={16} />}
+                </button>
+                
+                <div className={`pl-4 space-y-1.5 border-l border-gray-200 mt-2 overflow-hidden transition-all duration-300 ${mobileCategoriesOpen ? 'max-h-[500px] opacity-100 py-1' : 'max-h-0 opacity-0 pointer-events-none absolute'}`}>
+                  {categories.map((cat) => (
+                    <Link
+                      key={cat._id}
+                      href={`/`}
+                      onClick={() => setMenu(false)}
+                      className="block py-1.5 text-sm text-gray-600 hover:text-[#C09578] transition-colors"
+                    >
+                      {cat.name}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Pages Collapsible */}
+            <div className="space-y-1">
+              <button
+                onClick={() => setMobilePagesOpen(!mobilePagesOpen)}
+                className="w-full flex justify-between items-center py-2 text-base font-semibold border-b border-gray-100 text-gray-800 hover:text-[#C09578] cursor-pointer bg-transparent border-0 outline-none"
+              >
+                <span>Pages</span>
+                {mobilePagesOpen ? <IoIosArrowUp size={16} /> : <IoIosArrowDown size={16} />}
+              </button>
+              
+              <div className={`pl-4 space-y-1.5 border-l border-gray-200 mt-2 overflow-hidden transition-all duration-300 ${mobilePagesOpen ? 'max-h-[500px] opacity-100 py-1' : 'max-h-0 opacity-0 pointer-events-none absolute'}`}>
+                <Link 
+                  href="/about-us" 
+                  onClick={() => setMenu(false)}
+                  className="block py-1.5 text-sm text-gray-600 hover:text-[#C09578] transition-colors"
+                >
+                  About Us
+                </Link>
+                <Link 
+                  href="/cart" 
+                  onClick={() => setMenu(false)}
+                  className="block py-1.5 text-sm text-gray-600 hover:text-[#C09578] transition-colors"
+                >
+                  Cart
+                </Link>
+                <Link 
+                  href="/checkout" 
+                  onClick={() => setMenu(false)}
+                  className="block py-1.5 text-sm text-gray-600 hover:text-[#C09578] transition-colors"
+                >
+                  Checkout
+                </Link>
+                <Link 
+                  href="/faqs" 
+                  onClick={() => setMenu(false)}
+                  className="block py-1.5 text-sm text-gray-600 hover:text-[#C09578] transition-colors"
+                >
+                  Frequently Questions
+                </Link>
+                <Link 
+                  href="/contect-us" 
+                  onClick={() => setMenu(false)}
+                  className="block py-1.5 text-sm text-gray-600 hover:text-[#C09578] transition-colors"
+                >
+                  Contact
+                </Link>
+              </div>
+            </div>
+          </div>
+
+          {/* Account Actions at Bottom */}
+          <div className="p-5 bg-gray-50 border-t mt-auto flex-shrink-0">
+            {token ? (
+              <div className="space-y-3">
+                <Link href="/my-dashboard" onClick={() => setMenu(false)}>
+                  <button className="w-full bg-[#3a3737] py-2 text-white text-sm font-semibold hover:bg-black rounded transition-colors">
+                    MY DASHBOARD
+                  </button>
+                </Link>
+                <button
+                  onClick={() => {
+                    logOutUser();
+                    setMenu(false);
+                  }}
+                  className="w-full bg-[#c09578] py-2 text-white text-sm font-semibold hover:bg-black rounded transition-colors"
+                >
+                  LOG OUT
+                </button>
+              </div>
+            ) : (
+              <Link href="/login-register" onClick={() => setMenu(false)}>
+                <button className="w-full bg-[#C09578] py-2 text-white text-sm font-semibold hover:bg-black rounded transition-colors">
+                  LOGIN / REGISTER
                 </button>
               </Link>
-
-              <button
-                onClick={() => {
-                  setCartOpen(false);
-                  router.push("/checkout");
-                }}
-                className="py-2 w-full text-white bg-[#C09578] hover:bg-black transition-colors"
-              >
-                CHECKOUT
-              </button>
-            </div>
+            )}
           </div>
         </div>
       </div>
 
       {/* -------- HEADER TOP -------- */}
-      <div className="border-b hidden md:block">
+      <div className="border-b hidden lg:block">
         <div className="max-w-[1320px] mx-auto flex justify-between p-3 text-sm">
           <h3>Contact us 24/7 : +91-98745612330 / furnitureinfo@gmail.com</h3>
 
@@ -236,7 +401,7 @@ export default function Header() {
           />
 
           <div className="flex gap-4 items-center">
-            <form onSubmit={handleSearchSubmit} className="flex items-center hidden md:flex border border-gray-200 rounded-full bg-gray-50 focus-within:border-[#C09578] focus-within:bg-white focus-within:ring-1 focus-within:ring-[#C09578] transition-all duration-200 w-[240px] shadow-sm">
+            <form onSubmit={handleSearchSubmit} className="flex items-center hidden lg:flex border border-gray-200 rounded-full bg-gray-50 focus-within:border-[#C09578] focus-within:bg-white focus-within:ring-1 focus-within:ring-[#C09578] transition-all duration-200 w-[240px] shadow-sm">
               <input 
                 type="text" 
                 value={searchQuery}
@@ -272,7 +437,7 @@ export default function Header() {
               </span>
             </div>
 
-            <button onClick={() => setMenu(true)} className="md:hidden text-xl">
+            <button onClick={() => setMenu(true)} className="lg:hidden text-xl cursor-pointer hover:text-[#C09578] transition-colors">
               <FaBars />
             </button>
           </div>
@@ -281,7 +446,7 @@ export default function Header() {
 
       {/* -------- HEADER BOTTOM (RESTORED EXACTLY) -------- */}
       <div
-        className={`border-b bg-white ${scroll ? "fixed top-0 w-full z-50" : ""}`}
+        className={`border-b bg-white hidden lg:block ${scroll ? "fixed top-0 w-full z-50" : ""}`}
       >
         <ul className="flex justify-center font-semibold">
           <li className="p-5 text-[#c09578]">

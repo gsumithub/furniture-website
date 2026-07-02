@@ -93,77 +93,79 @@ export default function CartTable() {
   return (
     <div className="border-t-2 border-[#ebebeb]">
       <div className="max-w-[1320px] mx-auto py-10 px-5">
-        <table className="w-full text-center">
-          <thead className="bg-[#F8F9F9]">
-            <tr className="border-b-2 border-[#c09578]">
-              <th className="p-3">Delete</th>
-              <th className="p-3">Image</th>
-              <th className="p-3">Product</th>
-              <th className="p-3">Price</th>
-              <th className="p-3">Quantity</th>
-              <th className="p-3">Total</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            {cart.map((item) => (
-              <tr key={item._id} className="border-b">
-                {/* DELETE */}
-                <td
-                  className="p-3 text-2xl text-[#c09578] cursor-pointer hover:text-red-500"
-                  onClick={() => removeItem(item.product._id)}
-                >
-                  <RiDeleteBin5Line />
-                </td>
-
-                {/* IMAGE */}
-                <td className="p-3">
-                  <img
-                    src={item.product.image && item.product.image.startsWith('http')
-                      ? item.product.image
-                      : `${(process.env.NEXT_PUBLIC_APIBASEURL || "http://localhost:7000/api/").replace("api/", "")}uploads/product/${item.product.image}`
-                    }
-                    className="w-20 mx-auto"
-                  />
-                </td>
-
-                {/* NAME */}
-                <td className="p-3">{item.product.name}</td>
-
-                {/* PRICE */}
-                <td className="p-3">₹{item.product.price}</td>
-
-                {/* QUANTITY */}
-                <td className="p-3">
-                  <div className="flex justify-center gap-2 items-center">
-                    <button
-                      onClick={() =>
-                        updateQty(item.product._id, item.quantity - 1)
-                      }
-                      className="px-3 py-1 bg-gray-200 cursor-pointer"
-                    >
-                      -
-                    </button>
-
-                    <span className="font-semibold">{item.quantity}</span>
-
-                    <button
-                      onClick={() =>
-                        updateQty(item.product._id, item.quantity + 1)
-                      }
-                      className="px-3 py-1 bg-gray-200 cursor-pointer"
-                    >
-                      +
-                    </button>
-                  </div>
-                </td>
-
-                {/* TOTAL */}
-                <td className="p-3">₹{item.product.price * item.quantity}</td>
+        <div className="overflow-x-auto w-full rounded border border-gray-150 shadow-sm">
+          <table className="w-full text-center border-collapse min-w-[700px]">
+            <thead className="bg-[#F8F9F9]">
+              <tr className="border-b-2 border-[#c09578]">
+                <th className="p-3">Delete</th>
+                <th className="p-3">Image</th>
+                <th className="p-3">Product</th>
+                <th className="p-3">Price</th>
+                <th className="p-3">Quantity</th>
+                <th className="p-3">Total</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+
+            <tbody>
+              {cart.map((item) => (
+                <tr key={item._id} className="border-b">
+                  {/* DELETE */}
+                  <td
+                    className="p-3 text-2xl text-[#c09578] cursor-pointer hover:text-red-500"
+                    onClick={() => removeItem(item.product._id)}
+                  >
+                    <RiDeleteBin5Line className="mx-auto" />
+                  </td>
+
+                  {/* IMAGE */}
+                  <td className="p-3">
+                    <img
+                      src={item.product.image && item.product.image.startsWith('http')
+                        ? item.product.image
+                        : `${(process.env.NEXT_PUBLIC_APIBASEURL || "http://localhost:7000/api/").replace("api/", "")}uploads/product/${item.product.image}`
+                      }
+                      className="w-20 mx-auto"
+                    />
+                  </td>
+
+                  {/* NAME */}
+                  <td className="p-3 font-semibold text-gray-800">{item.product.name}</td>
+
+                  {/* PRICE */}
+                  <td className="p-3 text-gray-700">₹{item.product.price}</td>
+
+                  {/* QUANTITY */}
+                  <td className="p-3">
+                    <div className="flex justify-center gap-2 items-center">
+                      <button
+                        onClick={() =>
+                          updateQty(item.product._id, item.quantity - 1)
+                        }
+                        className="px-3 py-1 bg-gray-200 cursor-pointer text-sm font-bold hover:bg-gray-300 transition-colors"
+                      >
+                        -
+                      </button>
+
+                      <span className="font-semibold px-2">{item.quantity}</span>
+
+                      <button
+                        onClick={() =>
+                          updateQty(item.product._id, item.quantity + 1)
+                        }
+                        className="px-3 py-1 bg-gray-200 cursor-pointer text-sm font-bold hover:bg-gray-300 transition-colors"
+                      >
+                        +
+                      </button>
+                    </div>
+                  </td>
+
+                  {/* TOTAL */}
+                  <td className="p-3 font-bold text-[#c09578]">₹{item.product.price * item.quantity}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
 
         {/* TOTAL SECTION */}
         <div className="flex flex-col items-end mt-5">
