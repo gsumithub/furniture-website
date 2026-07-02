@@ -40,8 +40,13 @@ A complete, full-stack e-commerce solution featuring a dynamic customer-facing w
 1. **Dynamic Pages:** Dynamic fetching for Category Grid Banners, Testimonials, Hero Banners, and Newsletters.
 2. **Search Bar:** Functional search box with focus transitions, regex search routing, and custom search result views.
 3. **Wishlist:** Fully operational database-backed wishlist allowing users to save, delete, or directly copy items to their cart.
-4. **Shopping Cart:** Direct item updates, quantity modulations, and real-time header count syncs.
-5. **Checkout & Order Flow:** Dynamic shipping address capture, cart clearances, and MongoDB order creations.
+4. **Shopping Cart & Side Cart Panel:** Direct item updates, quantity modulations, real-time header count syncs, and direct checkout redirection from the side panel drawer.
+5. **Checkout & Order Flow:** Direct checkout access from the shopping cart page, dynamic shipping address validation, cart clearances, and MongoDB order creations.
+6. **Modernized UI & Animations:** Integrated a premium typography pairing (Jost & Playfair Display), customized scrollbars, hover-lift product card actions, and smooth category scale transitions supporting Tailwind v4's individual scale variables.
+7. **Transition System:** Integrated a layout-wide page transition wrapper causing elements to gracefully fade and slide up on route changes.
+8. **Toast Notifications:** Replaced traditional browser alerts with elegant, modern notification popups powered by `react-hot-toast`.
+9. **Strict Session Auth Guards:** Configured strict token authentication checks on cart, wishlist, and checkout pages. Guest users are automatically blocked and redirected to the login interface with a warning toast. Redux state and local storage are synchronized to prevent state discrepancy issues.
+10. **Resolved Dynamic Routing & Path Bugs:** Solved the Next.js 15+ promise parameter destructuring crash on the dynamic product details page, fixed the FAQ header route mismatch to eliminate 404s, and updated all header links to absolute paths.
 
 ### Admin Dashboard
 1. **Dynamic Admin Promotions:** Manage and promote database users to admin roles directly from the panel.
