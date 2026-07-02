@@ -10,10 +10,16 @@ export const loginSlice = createSlice({
     setToken:(state, action)=>{
       state.token = action.payload
       Cookies.set('token', state.token)
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('token', state.token)
+      }
     },
     logOut:(state)=>{
       state.token = null
       Cookies.remove('token')
+      if (typeof window !== 'undefined') {
+        localStorage.removeItem('token')
+      }
     }
   },
 })

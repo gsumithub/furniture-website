@@ -3,6 +3,7 @@ import axios from "@/utils/axiosInstance";
 import Link from "next/link";
 import { FaRegHeart } from "react-icons/fa";
 import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 export default function ProductCard({
   path,
@@ -13,12 +14,14 @@ export default function ProductCard({
   productId,
 }) {
   const API = process.env.NEXT_PUBLIC_APIBASEURL;
+  const router = useRouter();
 
   const addToCart = async () => {
     try {
       const token = localStorage.getItem("token");
       if (!token) {
-        toast.error("Please login first");
+        toast.error("Please login first to manage your cart");
+        router.push("/login-register");
         return;
       }
       await axios.post("cart/add", {
@@ -37,7 +40,8 @@ export default function ProductCard({
     try {
       const token = localStorage.getItem("token");
       if (!token) {
-        toast.error("Please login first");
+        toast.error("Please login first to manage your wishlist");
+        router.push("/login-register");
         return;
       }
       await axios.post("wishlist/add", { productId });
