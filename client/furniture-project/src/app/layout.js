@@ -28,7 +28,9 @@ export default function RootLayout({ children }) {
         <MainRootFile>
             <Header/>
 
-            {children}
+            <main className="animate-fade-in-up">
+              {children}
+            </main>
 
             <Footer/>
         </MainRootFile>
