@@ -155,7 +155,10 @@ export default function Header() {
               cartItems.map((item) => (
                 <Cartitem
                   key={item._id}
-                  img={`${API.replace("/api/", "")}uploads/product/${item.product.image}`}
+                  img={item.product.image && item.product.image.startsWith('http')
+                    ? item.product.image
+                    : `${(API || "http://localhost:7000/api/").replace("/api/", "").replace("api/", "")}uploads/product/${item.product.image}`
+                  }
                   title={item.product.name}
                   price={item.product.price}
                   qty={item.quantity}

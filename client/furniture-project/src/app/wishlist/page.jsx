@@ -78,9 +78,11 @@ export default function WishlistPage() {
         ) : (
           <div className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-6">
             {wishlistItems.map((product) => {
+              const API = process.env.NEXT_PUBLIC_APIBASEURL || "http://localhost:7000/api/";
+              const baseUploadUrl = API.replace("/api/", "").replace("api/", "");
               const imgSrc = product.image && product.image.startsWith("http")
                 ? product.image
-                : `http://localhost:7000/uploads/product/${product.image}`;
+                : `${baseUploadUrl}uploads/product/${product.image}`;
 
               return (
                 <div
