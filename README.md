@@ -2,6 +2,8 @@
 
 A complete, full-stack e-commerce solution featuring a dynamic customer-facing website, a robust admin dashboard for catalog management, and a secure Express.js API backend connected to MongoDB Atlas.
 
+https://github.com/user-attachments/assets/fef51d60-5a4a-4a52-9e30-769fa7dab8c2
+
 ---
 
 ## 🔗 Live Deployed URLs
